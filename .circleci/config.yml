@@ -6,7 +6,6 @@ baseImage: &baseImage
 
 orbs: 
   slack: circleci/slack@4.10.1
-  node: 'circleci/node:4.1'
 
 commands:
   destroy-environment:
