@@ -1,5 +1,9 @@
 version: 2.1
 
+baseImage: &baseImage
+  docker:
+    - image: circleci/node:13.8.0
+
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -34,8 +38,7 @@ commands:
             
 jobs:
   build-frontend:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *baseImage
     steps:
       - checkout
       - restore_cache:
@@ -52,8 +55,7 @@ jobs:
           key: frontend-build
 
   build-backend:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *baseImage
     steps:
       - checkout
       - restore_cache:
@@ -70,9 +72,7 @@ jobs:
           key: backend-build
 
   test-frontend:
-    docker:
-      # Docker image here
-      - image: circleci/node:13.8.0
+    <<: *baseImage
     steps:
       # Checkout code from git
       - checkout
@@ -88,9 +88,7 @@ jobs:
             npm run test
                 
   test-backend:
-    docker:
-      # Docker image here
-      - image: circleci/node:13.8.0
+    <<: *baseImage
     steps:
       # Checkout code from git
       - checkout
@@ -105,21 +103,40 @@ jobs:
             npm i
             npm run test
             
-  # scan-frontend:
-  #   docker:
-  #     # Docker image here
-  #   steps:
-  #     # Checkout code from git
-  #     # Restore from cache
-  #     # Your job code here
+  scan-frontend:
+    <<: *baseImage
+    steps:
+      # Checkout code from git
+      - checkout
+      # Restore from cache
+      - restore_cache:
+          keys: [frontend-scan]
+      - run:
+          name: vulnerability scan FE
+          command: |
+            cd frontend
+            npm install
+            # npm install oauth-sign@^0.9.0
+            npm audit --audit-level=critical
+      # Your job code here
 
-  # scan-backend:
-  #   docker:
-  #     # Docker image here
-  #   steps:
-  #     # Checkout code from git
-  #     # Restore from cache
-  #     # Your job code here
+  scan-backend:
+    <<: *baseImage
+    steps:
+      # Checkout code from git
+      - checkout
+      # Restore from cache
+      - restore_cache:
+          keys: [backend-scan]
+      - run:
+          name: vulnerability scan BE
+          # Your job code here
+          command: |
+            cd backend
+            npm install
+            # npm install oauth-sign@^0.9.0
+            npm audit --audit-level=critical
+      
 
   # deploy-infrastructure:
   #   docker:
@@ -296,10 +313,10 @@ workflows:
           requires: [build-frontend]
       - test-backend:
           requires: [build-backend]
-      # - scan-backend:
-      #     requires: [build-backend]
-      # - scan-frontend:
-      #     requires: [build-frontend]
+      - scan-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
