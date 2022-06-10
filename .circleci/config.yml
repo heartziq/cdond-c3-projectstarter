@@ -6,6 +6,7 @@ baseImage: &baseImage
 
 orbs: 
   slack: circleci/slack@4.10.1
+  node: 'circleci/node:4.1'
 
 commands:
   destroy-environment:
@@ -312,7 +313,12 @@ force-fail:
   <<: &baseImage
   steps:
     - checkout
-    - run: return 1
+    - run:
+        command: return 1
+    - slack/notify:
+        channel: meeting
+        event: fail
+        template: hello_test_on_fail
 
 workflows:
   default:
