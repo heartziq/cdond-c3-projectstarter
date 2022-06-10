@@ -308,17 +308,17 @@ jobs:
 #               # your code here
 #             fi
 
-force-fail:
-  docker:
-    - image: 'cimg/base:stable'
-  steps:
-    - checkout
-    - run:
-        command: return 1
-    - slack/notify:
-        channel: meeting
-        event: fail
-        template: hello_test_on_fail
+  force-fail:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - run:
+          command: return 1
+      - slack/notify:
+          channel: meeting
+          event: fail
+          template: hello_test_on_fail
 
 workflows:
   default:
