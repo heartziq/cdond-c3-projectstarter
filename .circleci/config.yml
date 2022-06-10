@@ -310,7 +310,8 @@ jobs:
 #             fi
 
 force-fail:
-  <<: &baseImage
+  docker:
+    - image: 'cimg/base:stable'
   steps:
     - checkout
     - run:
