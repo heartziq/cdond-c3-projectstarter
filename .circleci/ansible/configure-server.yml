@@ -16,7 +16,7 @@
     - name: "wait 600 seconds for target connection to become reachable/usable."
       # Your code here
       pause:
-        seconds: 600
+        seconds: 100
 
     - name: "install python for Ansible."
       # Your code here
