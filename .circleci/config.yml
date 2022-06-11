@@ -181,9 +181,9 @@ jobs:
               --output text >> .circleci/ansible/inventory.txt
               #exit 1
       - persist_to_workspace:
-          root: ansible
+          root: .circleci/ansible
           paths:
-            - .circleci/ansible/inventory.txt
+            - inventory.txt
       # Here's where you will add some code to rollback on failure
       - destroy-environment
 
@@ -200,7 +200,7 @@ jobs:
           fingerprints: ["d7:6a:4e:b8:f9:8b:e5:c1:a1:9d:3a:57:7d:82:90:63"] 
       # attach workspace
       - attach_workspace:
-          at: /tmp/ansible
+          at: /tmp/.circleci/ansible
       - run:
           name: Install dependencies
           command: |
@@ -212,7 +212,7 @@ jobs:
           command: |
             # Your code here
             # cd .circleci/ansible
-            ansible-playbook -i /tmp/ansible/inventory.txt .circleci/ansible/configure-server.yml
+            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
             #exit 1
       #Here's where you will add some code to rollback on failure
       - destroy-environment
