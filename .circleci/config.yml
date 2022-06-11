@@ -205,7 +205,10 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            yum -y install tar gzip ansible awscli
+            #yum -y install tar gzip ansible awscli
+            apk add python3 py3-pip
+            pip3 install awscli
+            apk add ansible
             #exit 1
       - run:
           name: Configure server
