@@ -256,7 +256,6 @@ jobs:
       - run:
           name: install nodejs, tar and gzip
           command: |
-            yum -y install nodejs
             yum -y install tar gzip
       - attach_workspace:
           at: /tmp/.circleci/ansible
