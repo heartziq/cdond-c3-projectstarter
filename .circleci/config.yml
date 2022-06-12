@@ -250,7 +250,6 @@ jobs:
                 # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
                 curl https://kvdb.io/26go9Kc5U9jmzNPNqcctet/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
-            #exit 1
       # Here's where you will add some code to rollback on failure      
 
   deploy-frontend:
