@@ -258,7 +258,7 @@ jobs:
           command: |
             yum -y install tar gzip
             # from this source https://linuxize.com/post/how-to-install-node-js-on-centos-7/
-            curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
             yum -y install nodejs npm
       - attach_workspace:
           at: /tmp/.circleci/ansible
