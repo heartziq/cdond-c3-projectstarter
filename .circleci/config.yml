@@ -29,19 +29,15 @@ commands:
     steps:
       - run:
           name: Revert migrations
-          # Add when this will run
-          when: on_fail
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
+            SUCCESS=$(curl https://kvdb.io/26go9Kc5U9jmzNPNqcctet/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1')
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
               npm install
-            #  Add revert code here. You can find this in the Getting Started section.
               npm run migrations:revert
-            #  exit 1
             fi
+          when: on_fail
             
 jobs:
   build-frontend:
@@ -263,6 +259,7 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
+            apk add tar gzip
             apk add python3 py3-pip
             pip3 install awscli
             apk add ansible
