@@ -257,18 +257,11 @@ jobs:
           name: install nodejs, tar and gzip
           command: |
             yum -y install tar gzip
+            # from this source https://linuxize.com/post/how-to-install-node-js-on-centos-7/
+            curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+            yum -y install nodejs npm
       - attach_workspace:
           at: /tmp/.circleci/ansible
-      - run:
-          name: Install dependencies
-          command: |
-            # Your code here
-            apk add python3 py3-pip
-            pip3 install awscli
-            apk add ansible
-            apk add --update nodejs
-            apk add --update npm
-            #exit 1
       - run:
           name: Get backend url
           command: |
