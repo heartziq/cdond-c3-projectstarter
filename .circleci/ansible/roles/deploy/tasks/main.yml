@@ -1,4 +1,10 @@
 ---
+
+- name: Copy backend dist files to remote server
+  copy:
+    src: /root/project/backend
+    dest: /home/ubuntu
+
 - name: "install dependencies."
   become: yes
   apt:
@@ -19,5 +25,7 @@
   shell: |
     cd /home/ubuntu/backend 
     npm install
+    npm run build
+    npm run prestart:prod
     pm2 stop default
     pm2 start npm -- start
