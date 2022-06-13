@@ -351,8 +351,8 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filters "Name=tag:project,Values=udapeople-backend-stack" \
               --output text)
-            #export API_URL="http://${BACKEND_IP}:3030"
-            #echo "${API_URL}"
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
             echo ${BACKEND_IP}
             if curl "http://${BACKEND_IP}:3030/api/status" | grep "ok"
             then
@@ -425,7 +425,6 @@ jobs:
 workflows:
   default:
     jobs:
-      # - force-fail
       # - build-frontend
       # - build-backend
       # - test-frontend:
@@ -455,9 +454,3 @@ workflows:
       #     requires: [smoke-test]
       # - cleanup:
       #     requires: [cloudfront-update]
-
-# cd .circleci/files
-# aws cloudformation deploy \
-#          --template-file cloudfront.yml \
-#          --stack-name InitialStack\
-#          --parameter-overrides WorkflowID=udapeople-fxo3f9rfrkze0ds3
