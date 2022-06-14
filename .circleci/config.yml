@@ -315,10 +315,10 @@ jobs:
           command: |
             # your code here
             echo "-------- LIST FILES ------"
-            ls -lah
+            ls -lah /tmp/.circleci
             echo "Contents  of the inventory.txt file is -------"
             cat /tmp/.circleci/ansible/inventory.txt
-            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt cd .circleci/ansible/deploy-backend.yml
+            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt /tmp/.circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure
       - destroy-environment
       - revert-migrations
