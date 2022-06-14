@@ -1,24 +1,8 @@
 ---
-
 - name: Copy backend dist files to remote server
   copy:
     src: /root/project/backend
     dest: /home/ubuntu
-
-- name: "install dependencies."
-  become: yes
-  apt:
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
-
-- name: "install pm2"
-  become: yes
-  npm:
-    name: pm2
-    global: yes
-    production: yes
-    state: present
 
 - name: Executing node
   become: true
