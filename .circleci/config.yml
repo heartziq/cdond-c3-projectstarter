@@ -314,6 +314,7 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
+            ls -lah
             cd backend
             npm i
             npm run build
