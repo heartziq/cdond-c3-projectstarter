@@ -15,6 +15,7 @@
     cd ..
     # Zip the directory
     tar -C backend -czvf artifact.tar.gz .
-    cd .circleci/ansible
+    #cd .circleci/ansible
+    cd backend
     pm2 stop default
     pm2 start npm -- start

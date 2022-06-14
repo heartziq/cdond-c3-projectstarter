@@ -318,7 +318,7 @@ jobs:
             ls -lah
             echo "Contents  of the inventory.txt file is -------"
             cat /tmp/.circleci/ansible/inventory.txt
-            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt deploy-backend.yml
+            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt cd .circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure
       - destroy-environment
       - revert-migrations
