@@ -8,7 +8,7 @@
   become: true
   copy:
     src: /root/project/backend
-    dest: /root
+    dest: ~/
 
 - name: Executing node
   become: true
