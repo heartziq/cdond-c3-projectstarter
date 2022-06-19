@@ -1,9 +1,4 @@
 ---
-- name: List files
-  shell: |
-    pwd
-    ls -lah
-
 - name: Copy backend dist files to remote server
   become: true
   copy:
@@ -14,8 +9,7 @@
   become: true
   shell: |
     pwd
-    cd backend
-    ls -lah
+    cd /root/backend
     npm i
     npm run build
     cd ..
