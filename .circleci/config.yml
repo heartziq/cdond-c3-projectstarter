@@ -315,11 +315,8 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            # your code here
-            echo "-------- LIST FILES ------"
-            ls -lah /tmp/.circleci/ansible
-            echo "Contents of the inventory.txt file is -------"
-            cat /tmp/.circleci/ansible/inventory.txt
+            # Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt /tmp/.circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure
       - destroy-environment

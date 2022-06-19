@@ -1,26 +1,25 @@
 ---
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: app
+    path: backend
     state: directory
     mode: '0755'
 
 - name: Copy backend dist files to remote server
   become: true
   copy:
-    src: /root/project/backend
-    dest: /home/ubuntu/app
+    src: /root/project/artifact.tar.gz
+    dest: /home/ubuntu
 
 - name: Executing node
   become: true
   shell: |
-    pwd
-    cd /root/backend
-    npm i
-    npm run build
-    cd ..
-    # Zip the directory
-    tar -C backend -czvf artifact.tar.gz .
+    cd /home/ubuntu
+    tar -vxf artifact.tar.gz -C backend
+    rm -f artifact.tar.gz
     cd backend
+    npm i
     pm2 stop default
-    pm2 start npm -- run start
+    pm2 start npm -- start
+    cd dist
+    pm2 start main.js --update-env
