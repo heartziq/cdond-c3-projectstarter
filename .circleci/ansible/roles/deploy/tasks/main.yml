@@ -17,9 +17,9 @@
     cd /home/ubuntu
     tar -vxf artifact.tar.gz -C backend
     rm -f artifact.tar.gz
-    cd backend
-    npm i
-    pm2 stop default
-    pm2 start npm -- start
-    cd dist
-    pm2 start main.js --update-env
+    # cd backend
+    # npm i
+    # pm2 stop default
+    # pm2 start npm -- start
+    # cd dist
+    # pm2 start main.js --update-env
