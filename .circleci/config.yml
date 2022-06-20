@@ -206,19 +206,13 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            #yum -y install tar gzip ansible awscli
             apk add python3 py3-pip
             pip3 install awscli
             apk add ansible
-            #exit 1
       - run:
           name: Configure server
           command: |
-            # Your code here
-            # cd .circleci/ansible
-            cat /tmp/.circleci/ansible/inventory.txt
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt /tmp/.circleci/ansible/configure-server.yml
-            #exit 1
       #Here's where you will add some code to rollback on failure
       - destroy-environment
 
