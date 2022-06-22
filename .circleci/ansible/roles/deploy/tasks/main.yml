@@ -6,22 +6,30 @@
     mode: '0777'
 
 - name: Copy backend dist files to remote server
-  become: true
+  become: yes
   copy:
     src: /root/project/artifact.tar.gz
     dest: /home/ubuntu
 
 - name: Executing node
-  become: true
+  become: yes
+  become_method: sudo
   shell: |
     cd /home/ubuntu
     tar -vxf artifact.tar.gz -C backend
     rm -f artifact.tar.gz
     cd backend
-    sudo npm install
-    sudo npm audit fix
-    sudo npm run build
+    npm install
+    npm audit fix
+    npm run build
     # pm2 stop default
     # pm2 start npm -- start
     # cd dist
     # pm2 start main.js --update-env
+
+- name: "run npm"
+  become: true
+  become_method: sudo
+  command: pm2 start npm -- run start
+  args:
+    chdir: /home/ubuntu/backend
