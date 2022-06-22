@@ -18,9 +18,10 @@
     tar -vxf artifact.tar.gz -C backend
     rm -f artifact.tar.gz
     cd backend
-    sudo npm i
+    sudo npm install
+    sudo npm audit fix
     sudo npm run build
     pm2 stop default
-    pm2 start npm -- start
-    cd dist
-    pm2 start main.js --update-env
+    # pm2 start npm -- start
+    # cd dist
+    # pm2 start main.js --update-env
