@@ -301,7 +301,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add tar gzip
+            apk add tar gzip curl
             apk add python3 py3-pip
             pip3 install awscli
             apk add ansible
