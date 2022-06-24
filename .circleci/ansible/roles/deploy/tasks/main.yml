@@ -22,7 +22,6 @@
     chown -R $USER /home/ubuntu/backend/node_modules
     chown -R $USER /home/ubuntu/backend/dist
     cd backend
-    cp .env.sample .env
     npm install
     npm audit fix
     npm run build
