@@ -14,22 +14,26 @@
 - name: Executing node
   become: yes
   become_method: sudo
-  shell: |
+  become_user: root
+  ansible.builtin.shell: |
     cd /home/ubuntu
     tar -vxf artifact.tar.gz -C backend
     rm -f artifact.tar.gz
+    chown -R $USER /home/ubuntu/backend/node_modules
+    chown -R $USER /home/ubuntu/backend/dist
     cd backend
+    cp .env.sample .env
     npm install
     npm audit fix
     npm run build
-    # pm2 stop default
-    # pm2 start npm -- start
-    # cd dist
-    # pm2 start main.js --update-env
+    pm2 stop default
+    pm2 start npm -- run start
+    cd dist
+    npm run build
+    pm2 start main.js --update-env
 
-- name: "run npm"
-  become: true
-  become_method: sudo
-  command: pm2 start npm -- run start
-  args:
-    chdir: /home/ubuntu/backend
+# - name: "run npm"
+#   become: true
+#   command: pm2 start npm -- run start
+#   args:
+#     chdir: /home/ubuntu/backend
