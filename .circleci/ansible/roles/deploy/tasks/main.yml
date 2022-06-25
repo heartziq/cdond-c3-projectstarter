@@ -24,8 +24,8 @@
     # chown -R $USER /home/ubuntu/backend/dist
     # chmod 777 /home/ubuntu/backend/node_modules
     # chmod 777 /home/ubuntu/backend/dist
-    # cd backend
-    # npm install
+    cd backend
+    npm install
     # npm audit fix
     # npm run build
     # pm2 stop default

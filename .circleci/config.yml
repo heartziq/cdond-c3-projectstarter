@@ -192,14 +192,6 @@ jobs:
     # Docker image here that supports Ansible
     docker:
       - image: python:3.7-alpine3.11
-        environment:
-          TYPEORM_CONNECTION: $TYPEORM_CONNECTION
-          TYPEORM_HOST: $TYPEORM_HOST
-          TYPEORM_USERNAME: $TYPEORM_USERNAME
-          TYPEORM_PASSWORD: $TYPEORM_PASSWORD
-          TYPEORM_DATABASE: $TYPEORM_DATABASE
-          TYPEORM_MIGRATIONS: $TYPEORM_MIGRATIONS
-          TYPEORM_ENTITIES: $TYPEORM_ENTITIES
     steps:
       # Checkout code from git
       - checkout
@@ -221,6 +213,14 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt /tmp/.circleci/ansible/configure-server.yml
+          environment:
+            TYPEORM_CONNECTION: $TYPEORM_CONNECTION
+            TYPEORM_HOST: $TYPEORM_HOST
+            TYPEORM_USERNAME: $TYPEORM_USERNAME
+            TYPEORM_PASSWORD: $TYPEORM_PASSWORD
+            TYPEORM_DATABASE: $TYPEORM_DATABASE
+            TYPEORM_MIGRATIONS: $TYPEORM_MIGRATIONS
+            TYPEORM_ENTITIES: $TYPEORM_ENTITIES
       #Here's where you will add some code to rollback on failure
       - destroy-environment
 
@@ -319,6 +319,10 @@ jobs:
           name: Deploy backend
           command: |
             # Zip the directory
+            cd backend
+            npm i
+            npm run build
+            cd ..
             tar -C backend -czvf artifact.tar.gz .
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt /tmp/.circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure
