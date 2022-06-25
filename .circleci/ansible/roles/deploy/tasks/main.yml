@@ -1,10 +1,4 @@
 ---
-# - name: Create a directory if it does not exist
-#   ansible.builtin.file:
-#     path: backend
-#     state: directory
-#     mode: '0777'
-
 - name: Copy backend dist files to remote server
   become: yes
   copy:
@@ -12,31 +6,17 @@
     dest: /home/ubuntu
 
 - name: Executing node
-  # become: yes
-  # become_method: sudo
-  # become_user: root
   ansible.builtin.shell: |
     cd /home/ubuntu
     mkdir backend
     tar -vxf artifact.tar.gz -C backend
     rm -f artifact.tar.gz
-    # chown -R $USER /home/ubuntu/backend/node_modules
-    # chown -R $USER /home/ubuntu/backend/dist
-    # chmod 777 /home/ubuntu/backend/node_modules
-    # chmod 777 /home/ubuntu/backend/dist
     cd backend
     cp .env.sample .env
     npm install
-    # npm audit fix
-    # npm run build
-    # pm2 stop default
-    # pm2 start npm -- run start
-    # cd dist
-    # npm run build
-    # pm2 start main.js --update-env
 
-# - name: "run npm"
-#   become: true
-#   command: pm2 start npm -- run start
-#   args:
-#     chdir: /home/ubuntu/backend
+- name: "run npm"
+  become: true
+  command: pm2 start npm -- run start
+  args:
+    chdir: /home/ubuntu/backend
