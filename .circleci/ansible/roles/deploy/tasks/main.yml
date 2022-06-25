@@ -17,6 +17,7 @@
   become_user: root
   ansible.builtin.shell: |
     cd /home/ubuntu
+    mkdir backend
     tar -vxf artifact.tar.gz -C backend
     rm -f artifact.tar.gz
     # chown -R $USER /home/ubuntu/backend/node_modules
