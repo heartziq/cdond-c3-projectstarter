@@ -12,9 +12,9 @@
     dest: /home/ubuntu
 
 - name: Executing node
-  become: yes
-  become_method: sudo
-  become_user: root
+  # become: yes
+  # become_method: sudo
+  # become_user: root
   ansible.builtin.shell: |
     cd /home/ubuntu
     mkdir backend
