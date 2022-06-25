@@ -25,6 +25,7 @@
     # chmod 777 /home/ubuntu/backend/node_modules
     # chmod 777 /home/ubuntu/backend/dist
     cd backend
+    cp .env.sample .env
     npm install
     # npm audit fix
     # npm run build
