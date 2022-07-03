@@ -400,7 +400,7 @@ jobs:
       - destroy-environment
       - revert-migrations
 
-cleanup:
+  cleanup:
     docker:
       # Docker image here
     steps:
