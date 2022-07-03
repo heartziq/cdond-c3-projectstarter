@@ -24,6 +24,7 @@ Resources:
         # CF (origin) udapeople-udapeople-fxo3f9rfrkze0ds3.s3.amazonaws.com
         # S3 udapeople-fxo3f9rfrkze0ds3
         #
+        # OLD - Manual
         # aws cloudformation deploy \
         #  --template-file cloudfront.yml \
         #  --stack-name InitialStack\
