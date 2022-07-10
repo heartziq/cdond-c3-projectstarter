@@ -276,6 +276,7 @@ jobs:
               --filters "Name=tag:project,Values=udapeople-backend-stack" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
+            echo API_URL="http://${BACKEND_IP}:3030"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
       - run:
           name: Deploy frontend objects
