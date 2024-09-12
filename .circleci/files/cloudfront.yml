@@ -18,9 +18,18 @@ Resources:
   WebpageCDN:
     Type: AWS::CloudFront::Distribution
     Properties:
-      DistributionConfig:
-        Origins:
-          - DomainName: !Sub "udapeople-${WorkflowID}.s3.amazonaws.com"
+      DistributionConfig: #udapeople-udapeople-frontend-a25d371.s3.amazonaws.com (got) 
+        Origins: #http://udapeople-a49ea23.s3-website-us-east-1.amazonaws.com
+        # udapeople-a49ea23.s3.us-east-1.amazonaws.com (expected)
+        # CF (origin) udapeople-udapeople-fxo3f9rfrkze0ds3.s3.amazonaws.com
+        # S3 udapeople-fxo3f9rfrkze0ds3
+        #
+        # OLD - Manual
+        # aws cloudformation deploy \
+        #  --template-file cloudfront.yml \
+        #  --stack-name InitialStack\
+        #  --parameter-overrides WorkflowID=udapeople-fxo3f9rfrkze0ds3
+          - DomainName: !Sub "${WorkflowID}.s3.amazonaws.com"
             Id: webpage
             S3OriginConfig:
               OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
